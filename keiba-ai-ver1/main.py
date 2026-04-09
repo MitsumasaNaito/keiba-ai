@@ -30,6 +30,11 @@ class TqdmLoggingHandler(logging.Handler):
 
 
 def _setup_logging():
+    # Windows では stdout/stderr がデフォルト CP932 のため UTF-8 に統一する
+    if sys.platform == "win32":
+        sys.stdout.reconfigure(encoding="utf-8")
+        sys.stderr.reconfigure(encoding="utf-8")
+
     fmt = logging.Formatter("%(asctime)s [%(levelname)s] %(name)s: %(message)s")
     handler = TqdmLoggingHandler()
     handler.setFormatter(fmt)

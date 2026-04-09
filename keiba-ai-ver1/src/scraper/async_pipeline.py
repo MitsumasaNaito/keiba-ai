@@ -259,7 +259,7 @@ def run_race_scraping_async(config: dict) -> set[str]:
                 for race_id in pending
             }
             try:
-                with tqdm(total=len(pending), desc=f"レース結果取得 (並列数={concurrent})", unit="レース") as pbar:
+                with tqdm(total=len(pending), desc=f"レース結果取得 (並列数={concurrent})", unit="レース", dynamic_ncols=True) as pbar:
                     for future in as_completed(futures):
                         future.result()  # IPBlockDetected を伝播させる
                         pbar.update(1)
@@ -312,7 +312,7 @@ def run_horse_scraping_async(horse_ids: set[str], config: dict) -> None:
                 executor.submit(_scrape_horse_worker, horse_id, scraper, cfg, rate_limiter): horse_id
                 for horse_id in pending
             }
-            with tqdm(total=len(pending), desc=f"馬歴取得 (並列数={concurrent})", unit="頭") as pbar:
+            with tqdm(total=len(pending), desc=f"馬歴取得 (並列数={concurrent})", unit="頭", dynamic_ncols=True) as pbar:
                 for future in as_completed(futures):
                     future.result()
                     pbar.update(1)

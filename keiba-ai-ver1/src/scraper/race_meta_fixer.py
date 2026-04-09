@@ -119,7 +119,7 @@ def run_fix_meta(config: dict, probe: bool = False) -> None:
             for p in pending_paths
         }
         try:
-            with tqdm(total=len(pending_paths), desc=f"メタ補完 (並列数={concurrent})", unit="レース") as pbar:
+            with tqdm(total=len(pending_paths), desc=f"メタ補完 (並列数={concurrent})", unit="レース", dynamic_ncols=True) as pbar:
                 for future in as_completed(futures):
                     future.result()
                     pbar.update(1)

@@ -138,7 +138,7 @@ class RaceIdCollector(BaseScraper):
 
         # 未収集のみ進捗バーを表示して取得
         if pending_targets:
-            with tqdm(pending_targets, desc="レースID収集", unit="月",
+            with tqdm(pending_targets, desc="レースID収集", unit="月", dynamic_ncols=True,
                       bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}, {rate_fmt}] {postfix}") as pbar:
                 for year, month in pbar:
                     pbar.set_postfix({"取得中": f"{year}/{month:02d}"})
