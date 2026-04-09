@@ -279,7 +279,7 @@ def run_race_scraping_async(config: dict) -> set[str]:
     existing_files = list(raw_races_dir.glob("*.parquet"))
     if existing_files:
         logger.info(f"既存レースファイル {len(existing_files)} 件から馬IDを補完中...")
-        for p in existing_files:
+        for p in tqdm(existing_files, desc="馬ID収集", unit="件", dynamic_ncols=True):
             try:
                 df = pd.read_parquet(p, columns=["horse_id"])
                 horse_ids.update(df["horse_id"].dropna().unique())
